@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}{{ filename }} — MagicBox{% endblock %}
+
+{% block breadcrumb %}
+<span class="breadcrumb">
+  <span>›</span>
+  <a href="/">首页</a>
+  <span>›</span>
+  <a href="/category/{{ category | urlencode }}">{{ category }}</a>
+  <span>›</span>
+  <span>{{ filename }}</span>
+</span>
+{% endblock %}
+
+{% block content %}
+{% if filetype == 'markdown' %}
+<div class="md-content">
+  {{ content | safe }}
+</div>
+{% elif filetype == 'pdf' %}
+<embed
+  class="pdf-container"
+  src="/raw/{{ category | urlencode }}/{{ filename | urlencode }}"
+  type="application/pdf">
+{% endif %}
+{% endblock %}

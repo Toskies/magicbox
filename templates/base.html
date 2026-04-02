@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}MagicBox{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div>
+    <a href="/">📚 MagicBox</a>
+    {% block breadcrumb %}{% endblock %}
+  </div>
+  {% block nav_action %}{% endblock %}
+</nav>
+
+<div class="container">
+  {% block content %}{% endblock %}
+</div>
+
+{% block modals %}{% endblock %}
+
+<script>
+function openModal(id) {
+  document.getElementById(id).classList.add('active');
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('active');
+}
+// 点击遮罩关闭
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('modal-overlay')) {
+    e.target.classList.remove('active');
+  }
+});
+</script>
+
+{% block scripts %}{% endblock %}
+</body>
+</html>

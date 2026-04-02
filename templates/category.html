@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category }} — MagicBox{% endblock %}
+
+{% block breadcrumb %}
+<span class="breadcrumb">
+  <span>›</span>
+  <a href="/">首页</a>
+  <span>›</span>
+  <span>{{ category }}</span>
+</span>
+{% endblock %}
+
+{% block nav_action %}
+<button class="btn btn-white" onclick="openModal('modal-upload')">⬆ 上传文件</button>
+{% endblock %}
+
+{% block content %}
+{% if files %}
+<div class="file-list">
+  {% for f in files %}
+  <a class="file-item" href="/view/{{ category | urlencode }}/{{ f.name | urlencode }}">
+    <span class="file-icon">{% if f.suffix == '.pdf' %}📕{% else %}📄{% endif %}</span>
+    <span class="file-name">{{ f.name }}</span>
+    <span class="file-meta">{{ f.suffix[1:] | upper }} · {{ f.mtime_str }}</span>
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+  <div class="empty-icon">📭</div>
+  <p>此分类还没有文件，上传或手动放入文件夹</p>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block modals %}
+<div class="modal-overlay" id="modal-upload">
+  <div class="modal">
+    <h2>上传文件</h2>
+    <form method="post" action="/api/upload/{{ category | urlencode }}" enctype="multipart/form-data">
+      <input type="file" name="file" accept=".md,.pdf" required>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-cancel" onclick="closeModal('modal-upload')">取消</button>
+        <button type="submit" class="btn btn-primary">上传</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

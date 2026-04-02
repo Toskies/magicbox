@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}MagicBox — 首页{% endblock %}
+
+{% block nav_action %}
+<button class="btn btn-white" onclick="openModal('modal-new-category')">+ 新建分类</button>
+{% endblock %}
+
+{% block content %}
+{% if categories %}
+<div class="category-grid">
+  {% for cat in categories %}
+  <a class="category-card" href="/category/{{ cat.name | urlencode }}">
+    <div class="icon">📁</div>
+    <div class="name">{{ cat.name }}</div>
+    <div class="count">{{ cat.count }} 个文件</div>
+  </a>
+  {% endfor %}
+  <div class="category-card category-card-new" onclick="openModal('modal-new-category')">
+    <div class="new-icon">+</div>
+    <div>新建分类</div>
+  </div>
+</div>
+{% else %}
+<div class="empty-state">
+  <div class="empty-icon">📂</div>
+  <p>还没有分类，点击右上角"新建分类"开始吧</p>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block modals %}
+<div class="modal-overlay" id="modal-new-category">
+  <div class="modal">
+    <h2>新建分类</h2>
+    <form method="post" action="/api/category">
+      <input type="text" name="name" placeholder="分类名称（支持中文、字母、数字、-_）" required autofocus>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-cancel" onclick="closeModal('modal-new-category')">取消</button>
+        <button type="submit" class="btn btn-primary">创建</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

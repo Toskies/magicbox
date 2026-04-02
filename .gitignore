@@ -1,0 +1,8 @@
+tests/
+
+docs/
+
+Claude.md
+
+__pycache__/
+*.py[cod]
