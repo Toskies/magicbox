@@ -1,0 +1,7 @@
+goroutine 1 [running]:
+coding/debug.writeGoroutineStacks({0x1397caa38040, 0x1e})
+	/home/sky/my-github/coding/debug/diagnostics.go:62 +0x47
+coding/debug.WriteDebugArtifacts({0x7ffc95b8a82e, 0xb}, {0x1397caa0add8, 0x3, 0x3})
+	/home/sky/my-github/coding/debug/diagnostics.go:33 +0x345
+main.main()
+	/home/sky/my-github/coding/debug/cmd/dlvdemo/main.go:36 +0x41e
